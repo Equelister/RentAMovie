@@ -1,0 +1,90 @@
+﻿<Page x:Class="RentAMovie.LoginWindow.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RentAMovie.LoginWindow"
+      mc:Ignorable="d" 
+d:DesignHeight="450" d:DesignWidth="240"
+      Title="RegisterPage"
+      Background="Transparent"
+      Foreground="#b3bcfc"
+      FontFamily="Georgia"
+      >
+
+
+
+
+
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="16">
+
+            <TextBlock Text="FirstName" Margin="0,0,0,5"/>
+            <TextBox x:Name="firstNameTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+
+            <TextBlock Text="LastName" Margin="0,0,0,5"/>
+            <TextBox x:Name="lastNameTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+
+            <TextBlock Text="Email" Margin="0,0,0,5"/>
+            <TextBox x:Name="emailTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+
+            <TextBlock Text="Password" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource CustomPasswordBox}" MaxHeight="24"/>
+
+            <TextBlock Text="RetypePassword" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="retypePasswordPasswordBox" Style="{StaticResource CustomPasswordBox}" MaxHeight="24"/>
+
+            <TextBlock Text="PhoneNumber" Margin="0,5,0,5"/>
+            <TextBox x:Name="phoneNumberTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+
+            <Button x:Name="registerButton" Style="{StaticResource CustomButtonStyle}"
+                    Content="Register" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    MinWidth="70"
+                    Margin="0,0,0,10" Click="registerButton_Click"/>
+            <TextBlock x:Name="failedRegisterTextBlock"
+                Text="FailedRegisterText" 
+                HorizontalAlignment="Center" Visibility="Collapsed"/>
+            <TextBlock x:Name="successRegisterTextBlock"
+                Text="SuccessRegisterText" 
+                HorizontalAlignment="Center" Visibility="Collapsed"/>
+        </StackPanel>
+
+    </Grid>
+
+
+
+</Page>
