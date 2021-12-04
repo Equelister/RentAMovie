@@ -15,10 +15,10 @@
 
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="8">
-            <TextBlock Text="Email" Margin="0,5,0,5"/>
-            <TextBox x:Name="emailTextBox" Style="{StaticResource CustomTextBox}"/>
+            <TextBlock Text="Login" Margin="0,5,0,5"/>
+            <TextBox x:Name="loginTextBox" Style="{StaticResource CustomTextBox}"/>
 
-            <TextBlock Text="Password}" Margin="0,5,0,5"/>
+            <TextBlock Text="Password" Margin="0,5,0,5"/>
             <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource CustomPasswordBox}"/>
 
             <Button x:Name="loginButton" Style="{StaticResource CustomButtonStyle}" 

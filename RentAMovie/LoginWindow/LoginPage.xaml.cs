@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using RentAMovie.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,25 +52,49 @@ namespace RentAMovie.LoginWindow
             return await collection.Find(new BsonDocument()).ToListAsync(); ;
         }
 
+        private async Task<UserModel> FindUserByLogin(IMongoCollection<UserModel> usersColl, BsonString login)
+        {
+            var xd = await usersColl.Find(new BsonDocument()).ToListAsync();
+            return await usersColl.Find(x => x.Login.Equals(login)).SingleAsync();
+        }
+
+
         private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
-
-
             AllocConsole();
-            // var client = new MongoClient();
-
-            // or use a connection string
             var client = new MongoClient("mongodb://localhost:27017");
-
-            // or, to connect to a replica set, with auto-discovery of the primary, supply a seed list of members
-            //var client = new MongoClient("mongodb://localhost:27017,localhost:27018,localhost:27019");
-
             var database = client.GetDatabase("rentamovie");
+            var usersColl = database.GetCollection<UserModel>("clients");
 
-            var collection = database.GetCollection<BsonDocument>("klienci");
+            //var result = collection.Find(x => x.login == "system")
+            var userLoginInput = loginTextBox.Text;
+            var userPaswordInput = passwordPasswordBox.Password.ToString();
+            var login = new BsonString(userLoginInput);
+
+            UserModel user = new UserModel();
+
+            try
+            {
+                user = await FindUserByLogin(usersColl, login);
+            }catch(Exception eeee)
+            {
+                errorLabel.Content = "Wrong credentials!";
+                errorLabel.Visibility = Visibility.Visible;
+                return;
+            }
+            if(user.Password.Equals(userPaswordInput))
+            {
+                App.Current.MainWindow.Hide();
+                MainWindow.MainWindow mainWindow = new MainWindow.MainWindow();
+                mainWindow.Show();
+                App.Current.MainWindow.Close();
+            }
 
 
-            var documents = await GetAll(collection);
+
+
+
+            //var documents = await GetAll(usersColl);
 
  
 
@@ -94,10 +119,7 @@ namespace RentAMovie.LoginWindow
 
 
 
-            App.Current.MainWindow.Hide();
-            MainWindow.MainWindow mainWindow = new MainWindow.MainWindow(1, true);
-            mainWindow.Show();
-            App.Current.MainWindow.Close();
+            
 
 
 
