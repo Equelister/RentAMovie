@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentAMovie.MainWindow
+namespace RentAMovie.MVVM.ViewModel
 {
-    class MainViewModel
+    class MoviesViewModel
     {
     }
 }

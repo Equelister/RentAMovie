@@ -62,20 +62,19 @@ namespace RentAMovie.LoginWindow
         private async void loginButton_Click(object sender, RoutedEventArgs e)
         {
             AllocConsole();
-            var client = new MongoClient("mongodb://localhost:27017");
+/*            var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("rentamovie");
             var usersColl = database.GetCollection<UserModel>("clients");
-
+*/
             //var result = collection.Find(x => x.login == "system")
             var userLoginInput = loginTextBox.Text;
             var userPaswordInput = passwordPasswordBox.Password.ToString();
-            var login = new BsonString(userLoginInput);
 
             UserModel user = new UserModel();
 
             try
             {
-                user = await FindUserByLogin(usersColl, login);
+                user = await Models.MongoDB.UserQueries.FindUserByLogin(new BsonString(userLoginInput));
             }catch(Exception eeee)
             {
                 errorLabel.Content = "Wrong credentials!";
@@ -85,8 +84,14 @@ namespace RentAMovie.LoginWindow
             if(user.Password.Equals(userPaswordInput))
             {
                 App.Current.MainWindow.Hide();
-                MainWindow.MainWindow mainWindow = new MainWindow.MainWindow();
+
+                var mainWindowViewModel = new MVVM.ViewModel.MainViewModel(user);
+                var mainWindow = new MainWindow() { DataContext = mainWindowViewModel };
                 mainWindow.Show();
+
+
+                /*MainWindow mainWindow = new MainWindow(user);
+                mainWindow.Show();*/
                 App.Current.MainWindow.Close();
             }
 

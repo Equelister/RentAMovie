@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentAMovie.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RentAMovie.MainWindow
+namespace RentAMovie
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class MainWindow : Window
     {
-        public MainView()
+        public MainWindow()
         {
             InitializeComponent();
         }
+
+        public MainWindow(UserModel user)
+        {
+            InitializeComponent();
+            User = user;
+        }
+
+        public UserModel User { get; }
     }
 }

@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RentAMovie.MainWindow
+namespace RentAMovie.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ClientsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ClientsView : UserControl
     {
-        private int _userID { get; set; }
-        private bool _isAdmin { get; set; }
-
-        public MainWindow(int userID, bool isAdmin)
+        public ClientsView()
         {
             InitializeComponent();
-            _userID = userID;
-            _isAdmin = isAdmin;
         }
     }
 }

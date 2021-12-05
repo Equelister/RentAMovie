@@ -1,9 +1,45 @@
 ﻿<Application x:Class="RentAMovie.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RentAMovie"
+             xmlns:local="clr-namespace:RentAMovie"    
+             xmlns:viewModel="clr-namespace:RentAMovie.MVVM.ViewModel"
+             xmlns:view="clr-namespace:RentAMovie.MVVM.View" 
              StartupUri="LoginWindow/LoginWindow.xaml">
+    
     <Application.Resources>
+
+
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/MenuRadioButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ClientsViewModel}">
+                <view:ClientsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:MoviesViewModel}">
+                <view:MoviesView/>
+            </DataTemplate>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="1,0" EndPoint="1,1">
             <GradientStop Color="#cacbcc" Offset="0" />
@@ -165,5 +201,6 @@
             </Setter>
         </Style>
 
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
