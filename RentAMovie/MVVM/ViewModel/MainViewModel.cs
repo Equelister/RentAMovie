@@ -46,10 +46,12 @@ namespace RentAMovie.MVVM.ViewModel
         public HomeViewModel HomeViewModel { get; set; }
         public ClientsViewModel ClientsViewModel { get; set; }
         public MoviesViewModel MoviesViewModel { get; set; }
+        public RentalViewModel RentalViewModel { get; set; }
 
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand ClientsViewCommand { get; set; }
         public RelayCommand MoviesViewCommand { get; set; }
+        public RelayCommand RentalViewCommand { get; set; }
 
         public MainViewModel()
         {
@@ -83,6 +85,11 @@ namespace RentAMovie.MVVM.ViewModel
             MoviesViewCommand = new RelayCommand(o =>
             {
                 CurrentView = MoviesViewModel;
+            });
+
+            RentalViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RentalViewModel;
             });
         }
 

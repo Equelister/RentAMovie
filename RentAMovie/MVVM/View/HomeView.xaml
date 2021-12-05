@@ -58,6 +58,9 @@
                     <GridViewColumn Header="LastName"  
                         DisplayMemberBinding="{Binding LastName}" >
                     </GridViewColumn>
+                    <GridViewColumn Header="RentalsCount"  
+                        DisplayMemberBinding="{Binding RentalsCount}" >
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -121,5 +124,21 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+
+
+        <StackPanel Grid.Row="6" Grid.Column="2"
+                    Grid.RowSpan="5" Grid.ColumnSpan="3">
+            <Button 
+                    Content="Create New Rental"
+                    Command="{Binding CreateNewRentalCommand}"/>
+
+        </StackPanel>
+
+
+
+
+
+
     </Grid>
 </UserControl>

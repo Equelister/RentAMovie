@@ -2,6 +2,7 @@
 using RentAMovie.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,8 @@ namespace RentAMovie.MVVM.ViewModel
             }
         }
 
-        private List<UserModel> _userList;
-        public List<UserModel> UserList
+        private ObservableCollection<UserModel> _userList;
+        public ObservableCollection<UserModel> UserList
         {
             get
             {
@@ -38,7 +39,7 @@ namespace RentAMovie.MVVM.ViewModel
             set
             {
                 _userList = value;
-                onPropertyChanged();
+                onPropertyChanged("UserList");
             }
         }
 
@@ -60,8 +61,8 @@ namespace RentAMovie.MVVM.ViewModel
             }
         }
 
-        private List<MovieModel> _movieList;
-        public List<MovieModel> MovieList
+        private ObservableCollection<MovieModel> _movieList;
+        public ObservableCollection<MovieModel> MovieList
         {
             get
             {
@@ -70,12 +71,12 @@ namespace RentAMovie.MVVM.ViewModel
             set
             {
                 _movieList = value;
-                onPropertyChanged();
+                onPropertyChanged("MovieList");
             }
         }
 
-        private List<RentalModel> _rentalList;
-        public List<RentalModel> RentalList
+        private ObservableCollection<RentalModel> _rentalList;
+        public ObservableCollection<RentalModel> RentalList
         {
             get
             {
@@ -84,7 +85,7 @@ namespace RentAMovie.MVVM.ViewModel
             set
             {
                 _rentalList = value;
-                onPropertyChanged();
+                onPropertyChanged("RentalList");
             }
         }
 
@@ -106,11 +107,18 @@ namespace RentAMovie.MVVM.ViewModel
             }
         }
 
+        public RelayCommand CreateNewRentalCommand { get; set; }
+
         private UserModel user;
         public HomeViewModel(UserModel user)
         {
             this.user = user;
             GetDataFromDBAsync();
+
+            CreateNewRentalCommand = new RelayCommand(o =>
+            {
+                CreateNewRentalAsync();
+            });
         }
 
         private async Task GetDataFromDBAsync()
@@ -122,17 +130,59 @@ namespace RentAMovie.MVVM.ViewModel
 
         private async Task GetAllUsersFromDBAsync()
         {
-            UserList = await Models.MongoDB.UserQueries.FindAllUsers();
+            UserList = new ObservableCollection<UserModel>(await Models.MongoDB.UserQueries.FindAllUsers());
         }
         
         private async Task GetAllRentalsFromDBAsync()
         {
-            RentalList = await Models.MongoDB.RentalQueries.FindAllRentals();
+            RentalList = new ObservableCollection<RentalModel>(await Models.MongoDB.RentalQueries.FindAllRentals());
         }
 
         private async Task GetAllMoviesFromDBAsync()
         {
-            MovieList = await Models.MongoDB.MovieQueries.FindAllMovies();
+            MovieList = new ObservableCollection<MovieModel>(await Models.MongoDB.MovieQueries.FindAllMovies());
+        }
+
+        private async Task CreateNewRentalAsync()
+        {
+            if(SelectedMovie is not null && SelectedUser is not null)
+            {
+                if (await Models.MongoDB.UserQueries.CheckUserRentalLimits(SelectedUser.ID) <= 5)
+                {
+                    if (await Models.MongoDB.MovieQueries.CheckIsMovieRentedChangeIfNot(SelectedMovie.ID) == false)
+                    {
+                        await Models.MongoDB.UserQueries.IncrementUserRentalLimitsByOne(SelectedUser.ID);
+                        var dateNow = DateTime.Now;
+                        RentalModel newRental = new RentalModel(SelectedUser.ID, SelectedMovie.ID);
+                        await Models.MongoDB.RentalQueries.InsertNewRentalToDB(newRental);
+                        RentalList.Add(newRental);
+
+                        var selectedUserTemp = SelectedUser;
+                        var selectedMovieTemp = SelectedMovie;
+
+                        selectedUserTemp.RentalsCount++;
+                        selectedMovieTemp.IsRented = true;
+
+                        UserList.Remove(SelectedUser);
+                        MovieList.Remove(SelectedMovie);
+
+                        SelectedUser = null;
+                        SelectedMovie = null;
+
+                        UserList.Add(selectedUserTemp);
+                        MovieList.Add(selectedMovieTemp);
+
+                        SelectedUser = selectedUserTemp;
+                        SelectedMovie = selectedMovieTemp;
+
+                       /* UserList.Where(x => x.ID.Equals(SelectedUser.ID)).FirstOrDefault().RentalsCount++;
+                        onPropertyChanged("UserList");
+                        MovieList.Where(x => x.ID.Equals(SelectedMovie.ID)).FirstOrDefault().IsRented = true;
+                        onPropertyChanged("MovieList");*/
+                        
+                    }
+                }
+            }
         }
     }
 }

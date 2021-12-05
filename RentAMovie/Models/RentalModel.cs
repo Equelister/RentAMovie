@@ -17,16 +17,25 @@ namespace RentAMovie.Models
 
         public DateTime RentDate { get; set; }
         public DateTime DateOfIntendedReturn { get; set; }
-        public DateTime DateOfRealReturn { get; set; }
+        public DateTime? DateOfRealReturn { get; set; }
 
 
 
-        public virtual UserModel UserM { get; set; }
-        public virtual MovieModel MovieM { get; set; }
+/*        public virtual UserModel UserM { get; set; }
+        public virtual MovieModel MovieM { get; set; }*/
 
         public RentalModel()
         {
 
+        }
+        public RentalModel(ObjectId userID, ObjectId movieID)
+        {
+            var dateNow = DateTime.Now;
+            Client = userID;
+            Movie = movieID;
+            RentDate = dateNow;
+            DateOfIntendedReturn = dateNow.AddDays(14);
+            DateOfRealReturn = null;
         }
     }
 }

@@ -30,5 +30,22 @@ namespace RentAMovie.Models.MongoDB
             return await _usersColl.Find(new BsonDocument()).ToListAsync();
             //return await _usersColl.Find(_ => true).ToListAsync();
         }
+
+        internal static async Task<int> CheckUserRentalLimits(ObjectId id)
+        {
+            var condition = Builders<UserModel>.Filter.Eq(p => p.ID, id);
+            var fields = Builders<UserModel>.Projection.Include(p => p.RentalsCount);
+            var result = await _usersColl.Find(condition).Project<UserModel>(fields).SingleAsync();
+            return result.RentalsCount;
+        }
+
+        internal static async Task IncrementUserRentalLimitsByOne(ObjectId id)
+        {
+            int setFieldAs = await CheckUserRentalLimits(id);
+
+            var condition = Builders<UserModel>.Filter.Eq(p => p.ID, id);
+            var fields = Builders<UserModel>.Update.Set(p => p.RentalsCount, setFieldAs+1);
+            var result = await _usersColl.UpdateOneAsync(condition, fields);
+        }
     }
 }

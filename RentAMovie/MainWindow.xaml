@@ -43,7 +43,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="DidYouKnow"
+            <TextBlock Text="RentAMovie"
                    Foreground="White"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -80,10 +80,16 @@
                              IsEnabled="{Binding Path=MenuRadios}"
                              Style="{StaticResource MenuRadioButtonStyle}"
 />
-            </StackPanel>
 
-            <TextBox Grid.Column="1"
-                     Text="123"/>
+                <RadioButton x:Name="RentalsRadioButton"
+                             Content="Rentals"
+                             Foreground="White"
+                             FontSize="18"
+                             Command="{Binding RentalViewCommand}"
+                             IsEnabled="{Binding Path=MenuRadios}"
+                             Style="{StaticResource MenuRadioButtonStyle}"
+/>
+            </StackPanel>
 
             <ContentControl Grid.Row="1" Grid.RowSpan="8"
                             Grid.Column="1" Grid.ColumnSpan="6"

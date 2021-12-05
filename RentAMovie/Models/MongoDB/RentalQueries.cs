@@ -31,5 +31,20 @@ namespace RentAMovie.Models.MongoDB
             }
             //return await _usersColl.Find(_ => true).ToListAsync();
         }
+
+        internal static async Task InsertNewRentalToDB(RentalModel newRental)
+        {
+            await _usersColl.InsertOneAsync(newRental);
+        }
+
+        internal static Task<int> CheckUserRentalLimits(ObjectId iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Task IncrementUserRentalLimitsByOne(ObjectId iD)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

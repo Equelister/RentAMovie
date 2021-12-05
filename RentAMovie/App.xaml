@@ -27,6 +27,10 @@
             <DataTemplate DataType="{x:Type viewModel:MoviesViewModel}">
                 <view:MoviesView/>
             </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:RentalViewModel}">
+                <view:RentalView/>
+            </DataTemplate>
 
 
 
