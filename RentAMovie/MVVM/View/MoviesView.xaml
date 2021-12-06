@@ -3,11 +3,150 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RentAMovie.MVVM.View"
+             xmlns:local="clr-namespace:RentAMovie.MVVM.View" xmlns:viewmodel="clr-namespace:RentAMovie.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MoviesViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Red">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="lobbiesListView" Grid.ColumnSpan="2"
+                  Grid.RowSpan="10"
+                  Margin="5"
+                  Padding="5"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Path=MovieList, 
+                                Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedMovie}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" Width="auto" 
+                        DisplayMemberBinding="{Binding Title}" >
+                    </GridViewColumn>
+                    <GridViewColumn Header="Director" Width="auto" 
+                        DisplayMemberBinding="{Binding Director}" >
+                    </GridViewColumn>
+                    <GridViewColumn Header="IsRented" Width="auto" 
+                        DisplayMemberBinding="{Binding IsRented}" >
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView x:Name="lobbiesdawListView" Grid.ColumnSpan="2"
+                  Grid.RowSpan="4"
+                  Grid.Row="10"
+                  Margin="5"
+                  Padding="5"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Path=ActorList, 
+                                Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedActor}">
+        </ListView>
+
+
+        <TextBox Grid.Row="14" Grid.RowSpan="1"
+                    Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="5"
+                    Text="{Binding Path=SelectedActor}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+        <DockPanel Grid.Row="15" Grid.RowSpan="4"
+                    Grid.Column="0" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center" MinWidth="100"
+                    VerticalAlignment="Center"
+                    Margin="0">
+            <Button Content="Delete" Margin="2" Padding="2" MinWidth="75"
+                    Command="{Binding DeleteActorCommand}"/>
+            <Button Content="Create" Margin="2" Padding="2" MinWidth="75"
+                    Command="{Binding CreateActorCommand}"/>
+
+        </DockPanel>
+
+
+
+
+
+
+        <StackPanel Grid.Row="0" Grid.RowSpan="14"
+                 Grid.Column="3" Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center" MinWidth="300"
+                    VerticalAlignment="Top"
+                    Margin="3">
+
+            <Label Content="Title"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Title}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="Summary"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Summary}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="Director"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Director}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="Duration"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Duration}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="Genre"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Genre}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="YearOfRelease"/>
+            <TextBox Text="{Binding Path=SelectedMovie.YearOfRelease}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
             
+            <Label Content="Rate"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Rate}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+
+            <Label Content="IsRented"/>
+            <CheckBox IsChecked="{Binding Path=SelectedMovie.IsRented}"
+                      IsEnabled="False"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="13" Grid.RowSpan="3"
+                    Grid.Column="3" Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center" MinWidth="300"
+                    VerticalAlignment="Top"
+                    Margin="5">
+            <Button Content="Update Movie" Margin="2"
+                    Command="{Binding UpdateMovieCommand}"/>
+            <Button Content="Delete Movie" Margin="2"
+                    Command="{Binding DeleteMovieCommand}"/>
+            <Button Content="Create New Movie" Margin="2"
+                    Command="{Binding CreateMovieCommand}"/>
+
+        </StackPanel>
     </Grid>
 </UserControl>

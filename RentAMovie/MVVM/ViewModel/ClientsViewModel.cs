@@ -27,38 +27,9 @@ namespace RentAMovie.MVVM.ViewModel
             {
                 SelectedUserTemp = _selectedUser;
                 _selectedUser = value;
-                //CreateSelectedUserTemp();
-                //CheckIfSelectionHasChanged();
                 onPropertyChanged();
             }
         }
-
-/*        private void CreateSelectedUserTemp()
-        {
-            if(SelectedUserTemp is null)
-            {
-                _selectedUserTemp = new UserModel();
-            }
-            _selectedUserTemp.ID = SelectedUser.ID;
-            _selectedUserTemp.Address = SelectedUser.Address;
-            _selectedUserTemp.FirstName = SelectedUser.FirstName;
-            _selectedUserTemp.IsAdmin = SelectedUser.IsAdmin;
-            _selectedUserTemp.LastName = SelectedUser.LastName;
-            _selectedUserTemp.Login = SelectedUser.Login;
-            _selectedUserTemp.Phone = SelectedUser.Phone;
-            _selectedUserTemp.RegisterDate = SelectedUser.RegisterDate;
-            _selectedUserTemp.RentalsCount = SelectedUser.RentalsCount;
-            _selectedUserTemp.Password = "";
-            onPropertyChanged("SelectedUserTemp");
-        }*/
-
-/*        private void CheckIfSelectionHasChanged()
-        {
-            if (SelectedUserTemp.ID.Equals(SelectedUser.ID))
-            {
-                _selectedUserTemp = new UserModel();
-            }
-        }*/
 
         private UserModel _selectedUserTemp;
         public UserModel SelectedUserTemp
@@ -112,7 +83,6 @@ namespace RentAMovie.MVVM.ViewModel
         public RelayCommand UpdateUserCommand { get; set; }
         public RelayCommand DeleteUserCommand { get; set; }
         public RelayCommand CreateUserCommand { get; set; }
-       // public RelayCommand RestoreUserCommand { get; set; }
 
 
         public ClientsViewModel()
@@ -133,11 +103,6 @@ namespace RentAMovie.MVVM.ViewModel
             {
                 CreateNewUserAsync();
             });
-
-         /*   RestoreUserCommand = new RelayCommand(o =>
-            {
-                CreateSelectedUserTemp();
-            });*/
         }
 
         private async Task UpdateExistingUserAsync()
@@ -184,33 +149,36 @@ namespace RentAMovie.MVVM.ViewModel
 
         private async Task CreateNewUserAsync()
         {
-            if(String.IsNullOrWhiteSpace(SelectedUser.Login) ||
-                String.IsNullOrWhiteSpace(InputedPassword) ||
-                String.IsNullOrWhiteSpace(SelectedUser.FirstName) ||
-                String.IsNullOrWhiteSpace(SelectedUser.LastName))
-            {
-                return;
-            }
-            UserModel newUser = new UserModel();
             if (SelectedUser is not null)
             {
-                newUser.ID = ObjectId.GenerateNewId();
-                newUser.FirstName = SelectedUser.FirstName;
-                newUser.LastName = SelectedUser.LastName;
-                newUser.Address = SelectedUser.Address;
-                newUser.Phone = SelectedUser.Phone;
-                newUser.RegisterDate = DateTime.Now;
-                newUser.Login = SelectedUser.Login;
-                newUser.Password = InputedPassword;
-                newUser.IsAdmin = SelectedUser.IsAdmin;
-                newUser.RentalsCount = 0;
-                await Models.MongoDB.UserQueries.InsertUser(newUser);
-                //UserList.Add(newUser);
-                GetAllUsersFromDBAsync();
-            }
-            else
-            {
-                return;
+                if (String.IsNullOrWhiteSpace(SelectedUser.Login) ||
+                    String.IsNullOrWhiteSpace(InputedPassword) ||
+                    String.IsNullOrWhiteSpace(SelectedUser.FirstName) ||
+                    String.IsNullOrWhiteSpace(SelectedUser.LastName))
+                {
+                    return;
+                }
+                UserModel newUser = new UserModel();
+                if (SelectedUser is not null)
+                {
+                    newUser.ID = ObjectId.GenerateNewId();
+                    newUser.FirstName = SelectedUser.FirstName;
+                    newUser.LastName = SelectedUser.LastName;
+                    newUser.Address = SelectedUser.Address;
+                    newUser.Phone = SelectedUser.Phone;
+                    newUser.RegisterDate = DateTime.Now;
+                    newUser.Login = SelectedUser.Login;
+                    newUser.Password = InputedPassword;
+                    newUser.IsAdmin = SelectedUser.IsAdmin;
+                    newUser.RentalsCount = 0;
+                    await Models.MongoDB.UserQueries.InsertUser(newUser);
+                    //UserList.Add(newUser);
+                    GetAllUsersFromDBAsync();
+                }
+                else
+                {
+                    return;
+                }
             }
         }
 
