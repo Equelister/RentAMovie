@@ -67,28 +67,32 @@ namespace RentAMovie.MVVM.ViewModel
         private void InitializeViewCommands()
         {
             HomeViewModel = new HomeViewModel(_user);
-            ClientsViewModel = new ClientsViewModel();
-            MoviesViewModel = new MoviesViewModel();
+            //ClientsViewModel = new ClientsViewModel();
+            //MoviesViewModel = new MoviesViewModel();
 
             CurrentView = HomeViewModel;
 
             HomeViewCommand = new RelayCommand(o =>
             {
+                HomeViewModel = new HomeViewModel(_user);
                 CurrentView = HomeViewModel;
             });
 
             ClientsViewCommand = new RelayCommand(o =>
             {
+                ClientsViewModel = new ClientsViewModel();
                 CurrentView = ClientsViewModel;
             });
 
             MoviesViewCommand = new RelayCommand(o =>
             {
+                MoviesViewModel = new MoviesViewModel();
                 CurrentView = MoviesViewModel;
             });
 
             RentalViewCommand = new RelayCommand(o =>
             {
+                RentalViewModel = new RentalViewModel();
                 CurrentView = RentalViewModel;
             });
         }

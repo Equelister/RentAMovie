@@ -47,5 +47,48 @@ namespace RentAMovie.Models.MongoDB
             var fields = Builders<UserModel>.Update.Set(p => p.RentalsCount, setFieldAs+1);
             var result = await _usersColl.UpdateOneAsync(condition, fields);
         }
+
+        internal static async Task<bool> UpdateUser(UserModel user)
+        {
+            var filter = Builders<UserModel>.Filter.Eq(s => s.ID, user.ID);
+            ReplaceOneResult result;
+            try
+            {
+                 result = await _usersColl.ReplaceOneAsync(filter, user);
+            }catch(Exception ek)
+            {
+                Console.WriteLine(ek.ToString());
+                return false;
+            }
+            long count = 0;
+            try
+            {
+                count = result.ModifiedCount;                
+            }catch(Exception e)
+            {
+                return false;
+            }
+            if (count == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        internal static async Task<long> DeleteUser(UserModel user)
+        {
+            var filter = Builders<UserModel>.Filter.Eq(s => s.ID, user.ID);
+            var result = await _usersColl.DeleteOneAsync(filter);
+            return result.DeletedCount;
+        }
+
+        internal static async Task InsertUser(UserModel user)
+        {
+            var filter = Builders<UserModel>.Filter.Eq(s => s.ID, user.ID);
+            await _usersColl.InsertOneAsync(user);            
+        }
     }
 }

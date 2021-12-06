@@ -35,10 +35,13 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <ListView x:Name="lobbiesListView" Grid.ColumnSpan="2"
-                  Grid.RowSpan="13"
+                  Grid.RowSpan="16"
                   Margin="5"
                   Padding="5"
                   SelectionMode="Single"
@@ -58,12 +61,51 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
-        
-        <TextBox Grid.Row="1" 
-                 Grid.Column="3" Grid.ColumnSpan="2"            
-                 Text="{Binding Path=SelectedUser.FirstName}"
-                 />
 
+        <StackPanel Grid.Row="0" Grid.RowSpan="14"
+                 Grid.Column="3" Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center" MinWidth="300"
+                    VerticalAlignment="Top"
+                    Margin="3">
+            
+            <Label Content="FirstName"/>
+            <TextBox Text="{Binding Path=SelectedUser.FirstName}"/>
+
+            <Label Content="LastName"/>
+            <TextBox Text="{Binding Path=SelectedUser.LastName}"/>
+
+            <Label Content="Address"/>
+            <TextBox Text="{Binding Path=SelectedUser.Address}"/>
+
+            <Label Content="Phone"/>
+            <TextBox Text="{Binding Path=SelectedUser.Phone}"/>
+
+            <Label Content="RentalsCount"/>
+            <TextBox Text="{Binding Path=SelectedUser.RentalsCount}"
+                     IsReadOnly="True"/>
+
+            <Label Content="Login"/>
+            <TextBox Text="{Binding Path=SelectedUser.Login}"/>
+
+            <Label Content="Password"/>
+            <TextBox Text="{Binding Path=InputedPassword}"/>
+            
+            <Label Content="IsAdmin"/>
+            <CheckBox IsChecked="{Binding Path=SelectedUser.IsAdmin}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="13" Grid.RowSpan="3"
+                    Grid.Column="3" Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center" MinWidth="300"
+                    VerticalAlignment="Top"
+                    Margin="5">
+            <Button Content="Update User" Margin="2"
+                    Command="{Binding UpdateUserCommand}"/>
+            <Button Content="Delete User" Margin="2"
+                    Command="{Binding DeleteUserCommand}"/>
+            <Button Content="Create New User" Margin="2"
+                    Command="{Binding CreateUserCommand}"/>
+
+        </StackPanel>
     </Grid>
 </UserControl>
