@@ -55,13 +55,13 @@ namespace RentAMovie.MVVM.ViewModel
 
         public MainViewModel()
         {
-            InitializeViewCommands();
+            //InitializeViewCommands();
         }
 
         public MainViewModel(UserModel user)
         {
-            InitializeViewCommands();
             _user = user;
+            InitializeViewCommands();
         }
 
         private void InitializeViewCommands()
@@ -80,20 +80,26 @@ namespace RentAMovie.MVVM.ViewModel
 
             ClientsViewCommand = new RelayCommand(o =>
             {
-                ClientsViewModel = new ClientsViewModel();
-                CurrentView = ClientsViewModel;
+                if (_user.IsAdmin)
+                {
+                    ClientsViewModel = new ClientsViewModel();
+                    CurrentView = ClientsViewModel;
+                }
             });
 
             MoviesViewCommand = new RelayCommand(o =>
             {
-                MoviesViewModel = new MoviesViewModel();
+                MoviesViewModel = new MoviesViewModel(_user);
                 CurrentView = MoviesViewModel;
             });
 
             RentalViewCommand = new RelayCommand(o =>
             {
-                RentalViewModel = new RentalViewModel();
-                CurrentView = RentalViewModel;
+                if (_user.IsAdmin)
+                {
+                    RentalViewModel = new RentalViewModel();
+                    CurrentView = RentalViewModel;
+                }
             });
         }
 

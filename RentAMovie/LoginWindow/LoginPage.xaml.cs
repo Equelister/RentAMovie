@@ -86,7 +86,7 @@ namespace RentAMovie.LoginWindow
                 App.Current.MainWindow.Hide();
 
                 var mainWindowViewModel = new MVVM.ViewModel.MainViewModel(user);
-                var mainWindow = new MainWindow() { DataContext = mainWindowViewModel };
+                var mainWindow = new MainWindow(user) { DataContext = mainWindowViewModel };
                 mainWindow.Show();
 
 

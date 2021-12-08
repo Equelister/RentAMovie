@@ -12,19 +12,19 @@ namespace RentAMovie.Models.MongoDB
     {
         private static MongoClient _client = new MongoClient("mongodb://localhost:27017");
         private static IMongoDatabase _database = _client.GetDatabase("rentamovie");
-        private static IMongoCollection<RentalModel> _usersColl = _database.GetCollection<RentalModel>("rentals");
+        private static IMongoCollection<RentalModel> _rentalsColl = _database.GetCollection<RentalModel>("rentals");
 
         public async static Task<RentalModel> FindRentalByID(BsonObjectId id)
         {
             // var xd = await _usersColl.Find(new BsonDocument()).ToListAsync();
-            return await _usersColl.Find(x => x.ID.Equals(id)).SingleAsync();
+            return await _rentalsColl.Find(x => x.ID.Equals(id)).SingleAsync();
         }
 
         public async static Task<List<RentalModel>> FindAllRentals()
         {
             try
             {
-                return await _usersColl.Find(new BsonDocument()).ToListAsync();
+                return await _rentalsColl.Find(new BsonDocument()).ToListAsync();
             }catch(Exception efefe)
             {
                 return null;
@@ -34,7 +34,7 @@ namespace RentAMovie.Models.MongoDB
 
         internal static async Task InsertNewRentalToDB(RentalModel newRental)
         {
-            await _usersColl.InsertOneAsync(newRental);
+            await _rentalsColl.InsertOneAsync(newRental);
         }
 
         internal static Task<int> CheckUserRentalLimits(ObjectId iD)
@@ -45,6 +45,19 @@ namespace RentAMovie.Models.MongoDB
         internal static Task IncrementUserRentalLimitsByOne(ObjectId iD)
         {
             throw new NotImplementedException();
+        }
+
+        internal static async Task<List<RentalModel>> FindMyRentals(ObjectId id)
+        {
+            try
+            {
+                var condition = Builders<RentalModel>.Filter.Eq(x => x.Client, id);
+                return await _rentalsColl.Find(condition).ToListAsync();
+            }
+            catch (Exception efefe)
+            {
+                return null;
+            }
         }
     }
 }

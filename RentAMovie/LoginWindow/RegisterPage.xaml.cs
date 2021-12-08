@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentAMovie.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,17 +34,72 @@ namespace RentAMovie.LoginWindow
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void registerButton_Click(object sender, RoutedEventArgs e)
+        private async void registerButton_ClickAsync(object sender, RoutedEventArgs e)
         {
                 
             String firstNameValue = firstNameTextBox.Text.Trim();
             String lastNameValue = lastNameTextBox.Text.Trim();
-            String emailValue = emailTextBox.Text.Trim();
+            String addressValue = addressTextBox.Text.Trim();
             String phoneNumberStringValue = phoneNumberTextBox.Text.Trim();
+            String loginStringValue = loginTextBox.Text.Trim();
             String passwordValue = passwordPasswordBox.Password.Trim();
             String retypedPasswordValue = retypePasswordPasswordBox.Password.Trim();
+
+            if (String.IsNullOrWhiteSpace(firstNameValue) == false &&
+                String.IsNullOrWhiteSpace(lastNameValue) == false &&
+                String.IsNullOrWhiteSpace(addressValue) == false &&
+                String.IsNullOrWhiteSpace(phoneNumberStringValue) == false &&
+                String.IsNullOrWhiteSpace(loginStringValue) == false &&
+                String.IsNullOrWhiteSpace(passwordValue) == false &&
+                String.IsNullOrWhiteSpace(retypedPasswordValue) == false
+                )
+            {
+                if (passwordValue.Equals(retypedPasswordValue))
+                {
+                    UserModel user = new UserModel(
+                        firstNameValue,
+                        lastNameValue,
+                        addressValue,
+                        phoneNumberStringValue,
+                        loginStringValue,
+                        passwordValue
+                        );
+
+                    Models.MongoDB.UserQueries.InsertUser(user);
+
+                    firstNameTextBox.Text = "";
+                    lastNameTextBox.Text = "";
+                    addressTextBox.Text = "";
+                    phoneNumberTextBox.Text = "";
+                    loginTextBox.Text = "";
+                    passwordPasswordBox.Password = "";
+                    retypePasswordPasswordBox.Password = "";
+
+                    failedRegisterTextBlock.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    failedRegisterTextBlock.Visibility = Visibility.Visible;
+                    successRegisterTextBlock.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                failedRegisterTextBlock.Visibility = Visibility.Visible;
+                successRegisterTextBlock.Visibility = Visibility.Collapsed;
+            }
+
+
+
+
+
+
+
+
+
             /* RegisterPageValidator validator = new RegisterPageValidator();
 
+            
 
             if (validator.IsInputedDataValid(firstNameValue, lastNameValue, emailValue, phoneNumberStringValue, passwordValue, retypedPasswordValue))
             {

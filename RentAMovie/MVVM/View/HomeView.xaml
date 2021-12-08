@@ -42,7 +42,8 @@
                   ItemsSource="{Binding Path=UserList, 
                                 Mode=TwoWay, 
                                 UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedUser}">
+                  SelectedItem="{Binding Path=SelectedUser}"
+                  GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -74,8 +75,9 @@
                   ItemsSource="{Binding Path=RentalList, 
                                 Mode=TwoWay, 
                                 UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedRental}">
-
+                  SelectedItem="{Binding Path=SelectedRental}"
+                  GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
+            
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -102,7 +104,8 @@
                   ItemsSource="{Binding Path=MovieList, 
                                 Mode=TwoWay, 
                                 UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedMovie}">
+                  SelectedItem="{Binding Path=SelectedMovie}"
+                  GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
             
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

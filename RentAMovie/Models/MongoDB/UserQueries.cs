@@ -87,7 +87,7 @@ namespace RentAMovie.Models.MongoDB
 
         internal static async Task InsertUser(UserModel user)
         {
-            var filter = Builders<UserModel>.Filter.Eq(s => s.ID, user.ID);
+            //var filter = Builders<UserModel>.Filter.Eq(s => s.ID, user.ID);
             await _usersColl.InsertOneAsync(user);            
         }
     }

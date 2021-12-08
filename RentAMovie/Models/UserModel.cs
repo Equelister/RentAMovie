@@ -27,5 +27,25 @@ namespace RentAMovie.Models
         {
 
         }
+
+        public UserModel(
+            string fn,
+            string ln,
+            string address,
+            string phone,
+            string login,
+            string pass)
+        {
+            FirstName = fn;
+            LastName = ln;
+            Address = address;
+            Phone = phone;
+            Login = login;
+            Password = pass;
+
+            RegisterDate = DateTime.Now;
+            IsAdmin = false;
+            RentalsCount = 0;
+        }
     }
 }

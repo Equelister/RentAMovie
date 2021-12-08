@@ -24,5 +24,7 @@ namespace RentAMovie.MVVM.View
         {
             InitializeComponent();
         }
+
+
     }
 }

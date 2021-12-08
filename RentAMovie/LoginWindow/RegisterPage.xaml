@@ -58,8 +58,11 @@ d:DesignHeight="450" d:DesignWidth="240"
             <TextBlock Text="LastName" Margin="0,0,0,5"/>
             <TextBox x:Name="lastNameTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
 
-            <TextBlock Text="Email" Margin="0,0,0,5"/>
-            <TextBox x:Name="emailTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+            <TextBlock Text="Address" Margin="0,0,0,5"/>
+            <TextBox x:Name="addressTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
+            
+            <TextBlock Text="Login" Margin="0,0,0,5"/>
+            <TextBox x:Name="loginTextBox" Style="{StaticResource CustomTextBox}" MaxHeight="24"/>
 
             <TextBlock Text="Password" Margin="0,0,0,5"/>
             <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource CustomPasswordBox}" MaxHeight="24"/>
@@ -74,12 +77,12 @@ d:DesignHeight="450" d:DesignWidth="240"
                     Content="Register" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" 
                     MinWidth="70"
-                    Margin="0,0,0,10" Click="registerButton_Click"/>
+                    Margin="0,0,0,10" Click="registerButton_ClickAsync"/>
             <TextBlock x:Name="failedRegisterTextBlock"
-                Text="FailedRegisterText" 
+                Text="Register Failed." 
                 HorizontalAlignment="Center" Visibility="Collapsed"/>
             <TextBlock x:Name="successRegisterTextBlock"
-                Text="SuccessRegisterText" 
+                Text="Success." 
                 HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>
 

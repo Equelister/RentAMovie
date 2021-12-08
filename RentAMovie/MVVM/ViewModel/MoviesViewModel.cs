@@ -4,9 +4,13 @@ using RentAMovie.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace RentAMovie.MVVM.ViewModel
 {
@@ -33,6 +37,35 @@ namespace RentAMovie.MVVM.ViewModel
                     ActorList = new ObservableCollection<string>(_selectedMovie.Actors);
                 }
                 onPropertyChanged();
+            }
+        }
+
+        private List<MovieModel> movieListTemp;
+        private string _movieFilter = "";
+        public string MovieFilter
+        {
+            get
+            {
+                
+                return _movieFilter;
+            }
+            set
+            {
+                _movieFilter = value;
+                onPropertyChanged();
+                if (_movieFilter.Equals(""))
+                {
+                    MovieList = new ObservableCollection<MovieModel>(movieListTemp);
+                    onPropertyChanged("MovieList");
+                }
+                else
+                {
+                    MovieList = new ObservableCollection<MovieModel>(movieListTemp);
+                    MovieList = DoAFilter();
+                    ActorList.Clear();
+                    onPropertyChanged("MovieList");
+                    onPropertyChanged("ActorList");
+                }
             }
         }
 
@@ -90,7 +123,13 @@ namespace RentAMovie.MVVM.ViewModel
             }
             set
             {
-                _fieldsEnabled = value;
+                if (_user.IsAdmin)
+                {
+                    _fieldsEnabled = value;
+                }else
+                {
+                    _fieldsEnabled = false;
+                }
                 onPropertyChanged();
             }
         }
@@ -103,34 +142,58 @@ namespace RentAMovie.MVVM.ViewModel
         public RelayCommand DeleteActorCommand { get; set; }
         public RelayCommand CreateActorCommand { get; set; }
 
-
-        public MoviesViewModel()
+        private UserModel _user;
+        public MoviesViewModel(UserModel user)
         {
+            _user = user;
             GetAllMoviesFromDBAsync();
+            if (_user.IsAdmin)
+            {
+                FieldsEnabled = true;
+            }
+            else
+            {
+                FieldsEnabled = false;
+            }
 
             UpdateMovieCommand = new RelayCommand(o =>
             {
-                UpdateExistingMovieAsync();
+                if (_user.IsAdmin)
+                {
+                    UpdateExistingMovieAsync();
+                }
             });
 
             DeleteMovieCommand = new RelayCommand(o =>
             {
-                DeleteExistingMovieAsync();
+                if (_user.IsAdmin)
+                {
+                    DeleteExistingMovieAsync();
+                }
             });
 
             CreateMovieCommand = new RelayCommand(o =>
             {
-                CreateNewMovieAsync();
+                if (_user.IsAdmin)
+                {
+                    CreateNewMovieAsync();
+                }
             });
 
             DeleteActorCommand = new RelayCommand(o =>
             {
-                DeleteExistingActorAsync();
+                if (_user.IsAdmin)
+                {
+                    DeleteExistingActorAsync();
+                }
             });
 
             CreateActorCommand = new RelayCommand(o =>
             {
-                CreateNewActorAsync();
+                if (_user.IsAdmin)
+                {
+                    CreateNewActorAsync();
+                }
             });
         }
 
@@ -223,7 +286,6 @@ namespace RentAMovie.MVVM.ViewModel
                     newMovie.Actors = SelectedMovie.Actors;
                     newMovie.YearOfRelease = SelectedMovie.YearOfRelease;
                     await Models.MongoDB.MovieQueries.InsertMovie(newMovie);
-                    //MovieList.Add(newMovie);
                     SelectedMovie = null;
                     _fieldsEnabled = false;
                     GetAllMoviesFromDBAsync();
@@ -238,6 +300,22 @@ namespace RentAMovie.MVVM.ViewModel
         private async Task GetAllMoviesFromDBAsync()
         {
             MovieList = new ObservableCollection<MovieModel>(await Models.MongoDB.MovieQueries.FindAllMovies());
+            movieListTemp = new List<MovieModel>(MovieList);
+        }
+
+        private ObservableCollection<MovieModel> DoAFilter()
+        {
+            ObservableCollection<MovieModel> filteredList = new ObservableCollection<MovieModel>();
+            foreach (var elem in MovieList)
+            {
+                if (elem.Title.ToLower().Contains(MovieFilter.ToLower()) ||
+                    elem.Genre.ToLower().Contains(MovieFilter.ToLower()) ||
+                    elem.Director.ToLower().Contains(MovieFilter.ToLower()))
+                {
+                    filteredList.Add(elem);
+                }
+            }
+            return filteredList;
         }
     }
 }

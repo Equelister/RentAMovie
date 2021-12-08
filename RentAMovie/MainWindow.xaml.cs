@@ -27,8 +27,8 @@ namespace RentAMovie
 
         public MainWindow(UserModel user)
         {
-            InitializeComponent();
             User = user;
+            InitializeComponent();
         }
 
         public UserModel User { get; }

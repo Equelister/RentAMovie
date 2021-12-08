@@ -109,10 +109,10 @@ namespace RentAMovie.MVVM.ViewModel
 
         public RelayCommand CreateNewRentalCommand { get; set; }
 
-        private UserModel user;
+        private UserModel _user;
         public HomeViewModel(UserModel user)
         {
-            this.user = user;
+            _user = user;
             GetDataFromDBAsync();
 
             CreateNewRentalCommand = new RelayCommand(o =>
@@ -123,9 +123,23 @@ namespace RentAMovie.MVVM.ViewModel
 
         private async Task GetDataFromDBAsync()
         {
-            await GetAllUsersFromDBAsync();
-            await GetAllMoviesFromDBAsync();
-            await GetAllRentalsFromDBAsync();
+            if (_user.IsAdmin)
+            {
+                await GetAllUsersFromDBAsync();
+                await GetAllMoviesFromDBAsync();
+                await GetAllRentalsFromDBAsync();
+            }else
+            {
+                UserList = new ObservableCollection<UserModel>();
+                UserList.Add(_user);
+                await GetAllMoviesFromDBAsync();
+                await GetMyRentalsFromDBAsync();
+            }
+        }
+
+        private async Task GetMyRentalsFromDBAsync()
+        {
+            RentalList = new ObservableCollection<RentalModel>(await Models.MongoDB.RentalQueries.FindMyRentals(_user.ID));
         }
 
         private async Task GetAllUsersFromDBAsync()
@@ -173,13 +187,7 @@ namespace RentAMovie.MVVM.ViewModel
                         MovieList.Add(selectedMovieTemp);
 
                         SelectedUser = selectedUserTemp;
-                        SelectedMovie = selectedMovieTemp;
-
-                       /* UserList.Where(x => x.ID.Equals(SelectedUser.ID)).FirstOrDefault().RentalsCount++;
-                        onPropertyChanged("UserList");
-                        MovieList.Where(x => x.ID.Equals(SelectedMovie.ID)).FirstOrDefault().IsRented = true;
-                        onPropertyChanged("MovieList");*/
-                        
+                        SelectedMovie = selectedMovieTemp;                        
                     }
                 }
             }
