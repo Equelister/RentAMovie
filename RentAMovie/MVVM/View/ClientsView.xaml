@@ -8,7 +8,7 @@
              d:DataContext="{d:DesignInstance Type=viewmodel:ClientsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="AliceBlue">
+             Background="Transparent">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -40,57 +40,95 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="lobbiesListView" Grid.ColumnSpan="2"
-                  Grid.RowSpan="16"
-                  Margin="5"
-                  Padding="5"
-                  SelectionMode="Single"
-                  ItemsSource="{Binding Path=UserList, 
-                                Mode=TwoWay, 
-                                UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedUser}">
+        <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="16"
+                Background="{StaticResource GreyGridGradientBrush}">
+            <ListView x:Name="lobbiesListView" 
+                      Background="Transparent" BorderThickness="0" BorderBrush="Transparent"
+                      Margin="5"
+                      Padding="5"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding Path=UserList, 
+                                    Mode=TwoWay, 
+                                    UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedUser}"
+                      Foreground="#b3bcfc">
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="FirstName" Width="auto" 
-                        DisplayMemberBinding="{Binding FirstName}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="LastName" Width="auto" 
-                        DisplayMemberBinding="{Binding LastName}" >
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
 
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="FirstName" Width="auto" 
+                            DisplayMemberBinding="{Binding FirstName}" >
+                        </GridViewColumn>
+                        <GridViewColumn Header="LastName" Width="auto" 
+                            DisplayMemberBinding="{Binding LastName}" >
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+        
+        
+        
         <StackPanel Grid.Row="0" Grid.RowSpan="14"
                  Grid.Column="3" Grid.ColumnSpan="3"
                     HorizontalAlignment="Center" MinWidth="300"
                     VerticalAlignment="Top"
                     Margin="3">
-            
-            <Label Content="FirstName"/>
-            <TextBox Text="{Binding Path=SelectedUser.FirstName}"/>
 
-            <Label Content="LastName"/>
-            <TextBox Text="{Binding Path=SelectedUser.LastName}"/>
+            <Label Content="FirstName"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedUser.FirstName}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Address"/>
-            <TextBox Text="{Binding Path=SelectedUser.Address}"/>
+            <Label Content="LastName"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedUser.LastName}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Phone"/>
-            <TextBox Text="{Binding Path=SelectedUser.Phone}"/>
+            <Label Content="Address"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedUser.Address}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="RentalsCount"/>
+            <Label Content="Phone"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedUser.Phone}"
+                     Style="{StaticResource CustomTextBox}"/>
+
+            <Label Content="RentalsCount"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedUser.RentalsCount}"
-                     IsReadOnly="True"/>
+                     IsReadOnly="True"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Login"/>
-            <TextBox Text="{Binding Path=SelectedUser.Login}"/>
+            <Label Content="Login"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedUser.Login}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Password"/>
-            <TextBox Text="{Binding Path=InputedPassword}"/>
-            
-            <Label Content="IsAdmin"/>
+            <Label Content="Password"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=InputedPassword}"
+                     Style="{StaticResource CustomTextBox}"/>
+
+            <Label Content="IsAdmin"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <CheckBox IsChecked="{Binding Path=SelectedUser.IsAdmin}"/>
         </StackPanel>
 
@@ -100,11 +138,14 @@
                     VerticalAlignment="Top"
                     Margin="5">
             <Button Content="Update User" Margin="2"
-                    Command="{Binding UpdateUserCommand}"/>
+                    Command="{Binding UpdateUserCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
             <Button Content="Delete User" Margin="2"
-                    Command="{Binding DeleteUserCommand}"/>
+                    Command="{Binding DeleteUserCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
             <Button Content="Create New User" Margin="2"
-                    Command="{Binding CreateUserCommand}"/>
+                    Command="{Binding CreateUserCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
 
         </StackPanel>
     </Grid>

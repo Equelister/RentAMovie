@@ -82,7 +82,12 @@
             <GradientStop Offset="0.4" Color="#494d52"/>
         </LinearGradientBrush>
 
-        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <LinearGradientBrush x:Key="GreyGridGradientBrush2" StartPoint="1,0" EndPoint="1,1">
+                <GradientStop Offset="0.8" Color="#3b424d"/>
+                <GradientStop Offset="0.45" Color="#2e3540"/>
+            </LinearGradientBrush>
+
+            <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource GrayBlueGradientBrush}"/>
             <Setter Property="Foreground" Value="#000000"/>
             <Setter Property="Height" Value="25"/>
@@ -153,8 +158,8 @@
             <Setter Property="Foreground" Value="#000000"/>
             <Setter Property="Padding" Value="2"/>
             <Setter Property="Margin" Value="2"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="MinHeight" Value="26"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="MinHeight" Value="20"/>
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -204,6 +209,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="CusutomLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#b3bcfc"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </ResourceDictionary>
     </Application.Resources>

@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:RentAMovie.MVVM.View" xmlns:viewmodel="clr-namespace:RentAMovie.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MoviesViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="Red"
+             Background="Transparent"
              MouseDown="MouseDownClick" >
+    
     <Grid x:Name="moviesMainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -43,65 +44,113 @@
                     Grid.Column="0" Grid.ColumnSpan="2"
                     Margin="5"
                     Text="{Binding Path=MovieFilter}"
-                 x:Name="filterTextBox"
-                    />
-        <Button Grid.Column="2" Content="Filter" Margin="5" Padding="0" MinWidth="75"/>
+                    x:Name="filterTextBox"
+                    Style="{StaticResource CustomTextBox}"/>
+        <Button Grid.Column="2" Content="Filter" Margin="5" Padding="0" MinWidth="75"
+                Style="{StaticResource CustomButtonStyle}"/>
 
-        <ListView x:Name="moviesListView" Grid.ColumnSpan="3"
-                  Grid.Row="1" Grid.RowSpan="9"
+
+        <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red" Margin="5"
+                Grid.ColumnSpan="3"
+                Grid.Row="1" Grid.RowSpan="9"
+                Background="{StaticResource GreyGridGradientBrush}">
+            <ListView x:Name="moviesListView" 
                   Margin="5"
-                  Padding="5"
+                  Padding="5"                      
+                  Background="Transparent" BorderThickness="0"
+                  Foreground="#b3bcfc"
                   SelectionMode="Single"
                   ItemsSource="{Binding Path=MovieList, 
                                 Mode=TwoWay, 
                                 UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedMovie}"
                   GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" Width="200" 
-                        DisplayMemberBinding="{Binding Title}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="Genre" Width="100" 
-                        DisplayMemberBinding="{Binding Genre}" >
-                    </GridViewColumn> 
-                    <GridViewColumn Header="Director" Width="100" 
-                        DisplayMemberBinding="{Binding Director}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="IsRented" Width="auto" 
-                        DisplayMemberBinding="{Binding IsRented}" >
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <ListView x:Name="lobbiesdawListView" Grid.ColumnSpan="3"
-                  Grid.RowSpan="4"
-                  Grid.Row="10"
-                  Margin="5"
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>                    
+                    <GridView>
+                        <GridViewColumn Header="Title" Width="200" 
+                        DisplayMemberBinding="{Binding Title}" >
+                        </GridViewColumn>
+                        <GridViewColumn Header="Genre" Width="100" 
+                        DisplayMemberBinding="{Binding Genre}" >
+                        </GridViewColumn>
+                        <GridViewColumn Header="Director" Width="100" 
+                        DisplayMemberBinding="{Binding Director}" >
+                        </GridViewColumn>
+                        <GridViewColumn Header="IsRented" Width="auto" 
+                        DisplayMemberBinding="{Binding IsRented}" >
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
+        <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red" Margin="5"
+                Grid.ColumnSpan="3"
+                Grid.RowSpan="4"
+                Grid.Row="10"
+                Background="{StaticResource GreyGridGradientBrush}">
+            <ListView x:Name="lobbiesdawListView" 
                   Padding="5"
+                  Background="Transparent" BorderThickness="0"
+                  Foreground="#b3bcfc"
                   SelectionMode="Single"
                   ItemsSource="{Binding Path=ActorList, 
                                 Mode=TwoWay, 
                                 UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedActor}">
-        </ListView>
 
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Foreground" Value="DarkBlue" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Border>
 
         <TextBox Grid.Row="14" Grid.RowSpan="1"
                     Grid.Column="0" Grid.ColumnSpan="3"
                     Margin="5"
                     Text="{Binding Path=SelectedActor}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"                 
+                     Style="{StaticResource CustomTextBox}"/>
         <DockPanel Grid.Row="15" Grid.RowSpan="4"
                     Grid.Column="0" Grid.ColumnSpan="3"
                     HorizontalAlignment="Center" MinWidth="100"
                     VerticalAlignment="Center"
                     Margin="0">
             <Button Content="Delete" Margin="2" Padding="2" MinWidth="75"
-                    Command="{Binding DeleteActorCommand}"/>
+                    Command="{Binding DeleteActorCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
             <Button Content="Create" Margin="2" Padding="2" MinWidth="75"
-                    Command="{Binding CreateActorCommand}"/>
+                    Command="{Binding CreateActorCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
 
         </DockPanel>
 
@@ -116,35 +165,50 @@
                     VerticalAlignment="Top"
                     Margin="3">
 
-            <Label Content="Title"/>
+            <Label Content="Title"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.Title}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Summary"/>
+            <Label Content="Summary"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.Summary}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Director"/>
+            <Label Content="Director"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.Director}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Duration"/>
+            <Label Content="Duration"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.Duration}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="Genre"/>
+            <Label Content="Genre"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.Genre}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="YearOfRelease"/>
+            <Label Content="YearOfRelease"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <TextBox Text="{Binding Path=SelectedMovie.YearOfRelease}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
-            
-            <Label Content="Rate"/>
-            <TextBox Text="{Binding Path=SelectedMovie.Rate}"
-                     IsEnabled="{Binding Path=FieldsEnabled}"/>
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
 
-            <Label Content="IsRented"/>
+            <Label Content="Rate"
+                   Style="{StaticResource CusutomLabelStyle}"/>
+            <TextBox Text="{Binding Path=SelectedMovie.Rate}"
+                     IsEnabled="{Binding Path=FieldsEnabled}"
+                     Style="{StaticResource CustomTextBox}"/>
+
+            <Label Content="IsRented"
+                   Style="{StaticResource CusutomLabelStyle}"/>
             <CheckBox IsChecked="{Binding Path=SelectedMovie.IsRented}"
                       IsEnabled="False"/>
         </StackPanel>
@@ -155,11 +219,14 @@
                     VerticalAlignment="Top"
                     Margin="5">
             <Button Content="Update Movie" Margin="2"
-                    Command="{Binding UpdateMovieCommand}"/>
+                    Command="{Binding UpdateMovieCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
             <Button Content="Delete Movie" Margin="2"
-                    Command="{Binding DeleteMovieCommand}"/>
+                    Command="{Binding DeleteMovieCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
             <Button Content="Create New Movie" Margin="2"
-                    Command="{Binding CreateMovieCommand}"/>
+                    Command="{Binding CreateMovieCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
 
         </StackPanel>
     </Grid>

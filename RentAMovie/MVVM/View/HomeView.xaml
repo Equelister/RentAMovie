@@ -6,38 +6,44 @@
              xmlns:local="clr-namespace:RentAMovie.MVVM.View" xmlns:viewmodel="clr-namespace:RentAMovie.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Background="Aqua">
+             Background="Transparent">
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <ListView x:Name="usersListView" Grid.ColumnSpan="2"
-                  Grid.RowSpan="13"
+            <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="13"
+                Background="{StaticResource GreyGridGradientBrush}">
+                <ListView x:Name="usersListView" 
                   Margin="5"
                   Padding="5"
+                  Background="Transparent" BorderThickness="0"
+                  Foreground="#b3bcfc"
                   SelectionMode="Single"
                   ItemsSource="{Binding Path=UserList, 
                                 Mode=TwoWay, 
@@ -45,30 +51,46 @@
                   SelectedItem="{Binding Path=SelectedUser}"
                   GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="FirstName"  
-                        DisplayMemberBinding="{Binding FirstName}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="LastName"  
-                        DisplayMemberBinding="{Binding LastName}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="RentalsCount"  
-                        DisplayMemberBinding="{Binding RentalsCount}" >
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
-        <ListView x:Name="rentalsListView"
-                  Grid.Column="2" Grid.ColumnSpan="3"
-                  Grid.RowSpan="5"
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="FirstName"  
+                        DisplayMemberBinding="{Binding FirstName}" >
+                            </GridViewColumn>
+                            <GridViewColumn Header="LastName"
+                        DisplayMemberBinding="{Binding LastName}" >
+                            </GridViewColumn>
+                            <GridViewColumn Header="RentalsCount"  
+                        DisplayMemberBinding="{Binding RentalsCount}" >
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+
+
+            <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red"
+                    Grid.Column="2" Grid.ColumnSpan="3"
+                    Grid.RowSpan="5"
+                    Background="{StaticResource GreyGridGradientBrush2}" Margin="5,0,5,0">
+                <ListView x:Name="rentalsListView"
+                  Background="Transparent" BorderThickness="0"
+                  Foreground="#b3bcfc"
                   Margin="5"
                   Padding="5"
                   SelectionMode="Single"
@@ -77,27 +99,45 @@
                                 UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedRental}"
                   GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
-            
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Movie ID"  
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Movie ID"  
                         DisplayMemberBinding="{Binding Movie}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="Client ID"  
+                            </GridViewColumn>
+                            <GridViewColumn Header="Client ID"  
                         DisplayMemberBinding="{Binding Client}" >
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
 
-        <ListView x:Name="moviesListView" Grid.Column="5" Grid.ColumnSpan="2"
-                  Grid.RowSpan="13"
+
+            <Border CornerRadius="10" BorderThickness="0" BorderBrush="Red"
+                Grid.Column="5"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="13"
+                Background="{StaticResource GreyGridGradientBrush}">
+                <ListView x:Name="moviesListView" 
+                  Background="Transparent" BorderThickness="0"
+                  Foreground="#b3bcfc"
                   Margin="5"
                   Padding="5"
                   SelectionMode="Single"
@@ -106,42 +146,52 @@
                                 UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding Path=SelectedMovie}"
                   GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler">
-            
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            
-            <ListView.View>                
-                <GridView>
-                    <GridViewColumn Header="Title"  
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Foreground" Value="DarkBlue" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Title"  
                         DisplayMemberBinding="{Binding Title}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="Director" 
+                            </GridViewColumn>
+                            <GridViewColumn Header="Director" 
                         DisplayMemberBinding="{Binding Director}" >
-                    </GridViewColumn>
-                    <GridViewColumn Header="Is Rented" 
+                            </GridViewColumn>
+                            <GridViewColumn Header="Is Rented" 
                         DisplayMemberBinding="{Binding IsRented}" >
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
 
 
-
-        <StackPanel Grid.Row="6" Grid.Column="2"
+            <StackPanel Grid.Row="6" Grid.Column="2"
                     Grid.RowSpan="5" Grid.ColumnSpan="3">
-            <Button 
+                <Button 
                     Content="Create New Rental"
-                    Command="{Binding CreateNewRentalCommand}"/>
+                    Command="{Binding CreateNewRentalCommand}"
+                Style="{StaticResource CustomButtonStyle}"/>
 
-        </StackPanel>
-
-
-
+            </StackPanel>
 
 
 
-    </Grid>
+
+
+        </Grid>
 </UserControl>

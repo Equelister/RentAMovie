@@ -28,6 +28,7 @@ namespace RentAMovie
         public MainWindow(UserModel user)
         {
             User = user;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
 

@@ -17,7 +17,7 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="Green"
+    <Border Background="{StaticResource BlueGridGradientBrush}"
             CornerRadius="20">
 
         <Grid>
