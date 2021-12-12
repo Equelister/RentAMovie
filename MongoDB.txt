@@ -1,0 +1,356 @@
+use rentamovie
+'switched to db rentamovie'
+
+
+
+
+var bulk = db.movies.initializeOrderedBulkOp();
+bulk.insert( { 
+        Title:'Diuna',
+        Director: 'Denis Villeneuve',
+        Genre: 'Sci-Fi',
+        Duration: 200,
+        YearOfRelease: 2021,
+        Actors: ['Timothée Chalamet', 'Rebecca Ferguson', 'Oscar Isaac', 'Jason Momoa'],
+        Rate: 7.9,
+        Summary: 'Szlachetny ród Atrydów przybywa na Diunę, będącą jedynym źródłem najcenniejszej substancji we wszechświecie.',
+        InsertDate: new Date(),
+	IsRented: true
+      } );
+bulk.insert( {         
+	Title:'UNCHARTED',
+        Director: 'Ruben Fleischer',
+        Genre: 'Przygodowy', 
+        Duration: 110,
+        YearOfRelease: 2022,
+        Actors: ['Tom Holland', 'Mark Wahlberg', 'Antonio Banderas'],
+        Summary: 'Nathan Drake wraz ze swoim przyjacielem Victorem Sullivanem i dziennikarką Eleną Fisher wyrusza na poszukiwania El Dorado.',
+        InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert({ 
+        Title:'ETERNALS',
+        Director: 'Chloé Zhao',
+        Genre: 'Sci-Fi',        
+        Duration: 130,
+        YearOfRelease: 2021,
+        Actors: ['Gemma Chan', 'Richard Madden'],
+        Summary: 'Opowieść o Eternals - przedwiecznej rasie nieśmiertelnych istot, które zamieszkiwały Ziemię i ukształtowały jej historię.',
+        InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert( { 
+        Title:'GWIEZDNE WOJNY: CZĘŚĆ IV - NOWA NADZIEJA',
+        Director: 'George Lucas',
+        Genre: 'Sci-Fi',  
+        Duration: 80,
+        YearOfRelease: 1977,
+        Rate: 10,
+        Actors: ['Mark Hamill', 'Harrison Ford', 'Carrie Fisher'],
+        Summary: 'Złowrogie Imperium zawładnęło galaktyką. Uwięzionej przez Dartha Vadera księżniczce Lei z nieoczekiwaną pomocą przyjdą kosmiczny przemytnik Han Solo i młody Luke Skywalker.',
+        InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert(  { 
+        Title:'INTERSTELLAR',
+        Director: 'Christopher Nolan',
+        Genre: 'Przygodowy',
+	Duration: 99,
+        YearOfRelease: 2014,
+        Rate: 7.9,
+        Actors: ['Matthew McConaughey', 'Anne Hathaway'],
+        Summary: 'Byt ludzkości na Ziemi dobiega końca wskutek zmian klimatycznych. Grupa naukowców odkrywa tunel czasoprzestrzenny, który umożliwia poszukiwanie nowego domu.',
+	InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert(  { 
+        Title:'Wieśmak 7 - Rozmowy z klakierkiem',
+        Director: 'Papa Smerf',
+        Genre: 'Okruchy życia',
+	Duration: 400,
+        YearOfRelease: 2057,
+	Rate: 2,
+        Actors: ['Michaś Żebro', 'Dimitri Głuchowaty'],
+        Summary: 'Dawni wrogowie na codziennej pogawendce',
+	InsertDate: new Date(),
+	IsRented: false
+      });
+bulk.insert({ 
+        Title:'Avengers 1',
+        Director: 'Tom Holland',
+        Genre: 'Sci-Fi',        
+        Duration: 23,
+        YearOfRelease: 2001,
+        Actors: ['Man Of Steel', 'Batman Nietoperz', 'Bruce McKwacz'],
+        Summary: 'Krótki Movie amatorski o tym jak kilku mężczyzn w rajtuzach się biją',
+        InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert( { 
+        Title:'GWIEZDNE WOJNY: CZĘŚĆ X - Arcydzieło',
+        Director: 'Ty',
+        Genre: 'Sci-Fi',  
+        Duration: 150,
+        YearOfRelease: 2033,
+        Rate: 10,
+        Actors: ['Harrison Ford', 'Obi-wan Kenobi', 'George Cluney', 'Keanu Reeves'],
+        Summary: 'Po latach nieudanych prequelów oraz sequelów nadszedł czas, byś to TY stworzył kolejną część, która będzie najlepsza, bo to TWOJE pomysły są genialne i unikatowe i gdybyś to TY robił kolejną część, to TWOJA część była by legendarna, oni się nie znają, tylko TY jesteś najmądrzejszy, jeśli chodzi o star warsy, bo to TWOJE dziecństwo i nikt CI nie będzie go niszczyć',
+        InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert(  { 
+        Title:'Złoty zegarek',
+        Director: 'Christopher Nolan',
+        Genre: 'Przygodowy',
+	Duration: 90,
+        YearOfRelease: 2011,
+        Rate: 7.1,
+        Actors: ['Dziewczynka z zapałkami', 'Anne Hathaway', 'Niedżwiedż Wojtek'],
+        Summary: 'Byt ludzkości na Ziemi dobiega końca, jedyną nadzieją na ocalenie dzieci jest Dziewczynka, która znalazła zegarek, której towarszyszy wierny niedżwiedż Wojtek z doświadczeniem z 2 wojny światowej',
+	InsertDate: new Date(),
+	IsRented: false
+      } );
+bulk.insert(  { 
+        Title:'Złoty kielich',
+        Director: 'Papa Smerf',
+        Genre: 'Okruchy życia',
+	Duration: 111,
+        YearOfRelease: 2006,
+	Rate: 10,
+        Actors: ['Harrison Ford', 'Ojciec Forda'],
+        Summary: 'Najlepszy Indiana Johnes, pozdrawiam i polecam, Piotr Fronczewski.',
+	InsertDate: new Date(),
+	IsRented: false
+      });
+bulk.execute();
+{ acknowledged: true,
+  insertedCount: 10,
+  insertedIds: 
+   [ { index: 0, _id: ObjectId("61a9338f7de376ff7e4ca330") },
+     { index: 1, _id: ObjectId("61a9338f7de376ff7e4ca331") },
+     { index: 2, _id: ObjectId("61a9338f7de376ff7e4ca332") },
+     { index: 3, _id: ObjectId("61a9338f7de376ff7e4ca333") },
+     { index: 4, _id: ObjectId("61a9338f7de376ff7e4ca334") },
+     { index: 5, _id: ObjectId("61a9338f7de376ff7e4ca335") },
+     { index: 6, _id: ObjectId("61a9338f7de376ff7e4ca336") },
+     { index: 7, _id: ObjectId("61a9338f7de376ff7e4ca337") },
+     { index: 8, _id: ObjectId("61a9338f7de376ff7e4ca338") },
+     { index: 9, _id: ObjectId("61a9338f7de376ff7e4ca339") } ],
+  matchedCount: 0,
+  modifiedCount: 0,
+  deletedCount: 0,
+  upsertedCount: 0,
+  upsertedIds: [] }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+db.createCollection( "clients", 
+	{validator: { 
+		$jsonSchema: { 
+			bsonType: "object",
+		        required: [
+				"FirstName", 
+				"LastName", 
+				"Login",
+				"Password",
+				"IsAdmin"
+			], 
+			properties: {
+				FirstName: {
+					bsonType: "string"
+				}, 
+				LastName: {
+					bsonType: "string" 
+				}, 
+				Address: {
+				  	bsonType: "string"
+				},
+				Phone: {
+					bsonType: "string"
+				}, 
+				Login: {
+					bsonType: "string"
+				},
+				Password: {
+					bsonType: "string"
+				},
+				IsAdmin: {
+					bsonType: "bool"
+				}
+			}
+		}
+	}
+}) 
+{ ok: 1 }
+var bulk = db.clients.initializeOrderedBulkOp();
+bulk.insert( {       
+        FirstName:'Andrzej',
+        LastName: 'Kowalski',
+        Address: 'Sosnowiec 123', 
+        Phone: '123-456-789',
+        RegisterDate: new Date(),
+	Login: 'ako',
+	Password: '123',
+	IsAdmin: true,
+	RentalsCount: 0
+      } );
+bulk.insert( {       
+        FirstName:'Antoniusz',
+        LastName: 'Bezwzględny',
+        Address: 'Grunwald 1410', 
+        Phone: '+48505606707',
+        RegisterDate: new Date(),
+	Login: 'abe',
+	Password: '123',
+	IsAdmin: false,
+	RentalsCount: 0
+      } );
+bulk.insert( {       
+        FirstName:'Zbigniew',
+        LastName: 'Kowalski',
+        Address: 'Wałbrzych 1', 
+        Phone: '123456789',
+        RegisterDate: new Date(),
+	Login: 'zko',
+	Password: '123',
+	IsAdmin: false,
+	RentalsCount: 0
+      } );
+bulk.insert( {       
+        FirstName:'Piotr',
+        LastName: 'Bezwzględny',
+        Address: 'Sosnowiec 20', 
+        Phone: '+48505606123',
+        RegisterDate: new Date(),
+	Login: 'pbe',
+	Password: '123',
+	IsAdmin: false,
+	RentalsCount: 0
+      } );
+bulk.insert( {       
+        FirstName:'Zbigniew',
+        LastName: 'Zbigniewowski',
+        Address: 'Zbigniewów 13', 
+        Phone: 'nie mam',
+        RegisterDate: new Date(),
+	Login: 'zbi',
+	Password: '123',
+	IsAdmin: false,
+	RentalsCount: 0
+      } );
+bulk.execute();
+{ acknowledged: true,
+  insertedCount: 5,
+  insertedIds: 
+   [ { index: 0, _id: ObjectId("61a93c2a7de376ff7e4ca344") },
+     { index: 1, _id: ObjectId("61a93c2a7de376ff7e4ca345") },
+     { index: 2, _id: ObjectId("61a93c2a7de376ff7e4ca346") },
+     { index: 3, _id: ObjectId("61a93c2a7de376ff7e4ca347") },
+     { index: 4, _id: ObjectId("61a93c2a7de376ff7e4ca348") } ],
+  matchedCount: 0,
+  modifiedCount: 0,
+  deletedCount: 0,
+  upsertedCount: 0,
+  upsertedIds: [] }
+
+
+
+
+
+
+
+
+var bulk = db.rentals.initializeOrderedBulkOp();
+bulk.insert( {       
+        Client: ObjectId("61ab73530a554d5ac7d2fa92"),
+        Movie: ObjectId("61ab6f1b363aeed4cd6f5dc3"),
+        RentDate: new Date(),
+        DateOfIntendedReturn: new Date(),
+        DateOfRealReturn: new Date()
+      } );
+bulk.insert( {       
+        Client: ObjectId("61ab73530a554d5ac7d2fa93"),
+        Movie: ObjectId("61ab6f1b363aeed4cd6f5dc5"),
+        RentDate: new Date(),
+        DateOfIntendedReturn: new Date(),
+        DateOfRealReturn: new Date()
+      } );
+bulk.insert( {       
+        Client: ObjectId("61ab73530a554d5ac7d2fa92"),
+        Movie: ObjectId("61ab6f1b363aeed4cd6f5dc7"),
+        RentDate: new Date(),
+        DateOfIntendedReturn: new Date(),
+        DateOfRealReturn: new Date()
+      } );
+bulk.insert( {       
+        Client: ObjectId("61ab73530a554d5ac7d2fa92"),
+        Movie: ObjectId("61ab6f1b363aeed4cd6f5dcc"),
+        RentDate: new Date(),
+        DateOfIntendedReturn: new Date(),
+        DateOfRealReturn: new Date()
+      } );
+bulk.execute();
+{ acknowledged: true,
+  insertedCount: 4,
+  insertedIds: 
+   [ { index: 0, _id: ObjectId("61a93cdd7de376ff7e4ca349") },
+     { index: 1, _id: ObjectId("61a93cdd7de376ff7e4ca34a") },
+     { index: 2, _id: ObjectId("61a93cdd7de376ff7e4ca34b") },
+     { index: 3, _id: ObjectId("61a93cdd7de376ff7e4ca34c") } ],
+  matchedCount: 0,
+  modifiedCount: 0,
+  deletedCount: 0,
+  upsertedCount: 0,
+  upsertedIds: [] }
+
+
+
+
+
+db.clients.createIndex( { Login: 1 }, { unique: true } )
+'Login_1'
+db.movies.createIndex( { Title: 1 }, { unique: true } )
+'Title_1'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
