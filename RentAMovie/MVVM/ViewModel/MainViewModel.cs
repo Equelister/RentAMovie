@@ -82,7 +82,7 @@ namespace RentAMovie.MVVM.ViewModel
             {
                 if (_user.IsAdmin)
                 {
-                    ClientsViewModel = new ClientsViewModel();
+                    ClientsViewModel = new ClientsViewModel(_user);
                     CurrentView = ClientsViewModel;
                 }
             });

@@ -84,10 +84,11 @@ namespace RentAMovie.MVVM.ViewModel
         public RelayCommand DeleteUserCommand { get; set; }
         public RelayCommand CreateUserCommand { get; set; }
 
-
-        public ClientsViewModel()
+        private UserModel _user;
+        public ClientsViewModel(UserModel user)
         {
             GetAllUsersFromDBAsync();
+            _user = user;
 
             UpdateUserCommand = new RelayCommand(o =>
             {
@@ -133,7 +134,7 @@ namespace RentAMovie.MVVM.ViewModel
                 ObjectId a = new ObjectId();
                 if (SelectedUser.ID.Equals(a) == false)
                 {
-                    if (SelectedUser.RentalsCount <= 0)
+                    if (SelectedUser.RentalsCount <= 0 && _user.ID.Equals(SelectedUser.ID) == false)
                     {
                         long result = await Models.MongoDB.UserQueries.DeleteUser(SelectedUser);
                         if (result == 1)
